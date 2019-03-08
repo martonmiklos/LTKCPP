@@ -254,7 +254,7 @@ void
 usage (
   char *                        pProgName)
 {
-#ifdef linux
+#if defined(linux) || defined (__linux__)
     printf("Usage: %s [-v[v]] READERHOSTNAME\n", pProgName);
     printf("\n");
     printf("Each -v increases verbosity level\n");

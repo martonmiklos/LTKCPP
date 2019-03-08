@@ -54,7 +54,7 @@
 
 
 #include <stdio.h>
-#ifdef linux
+#if defined(linux) || defined (__linux__)
 #include <unistd.h>
 #endif
 #include <cstdlib>
@@ -198,7 +198,7 @@ main (
     CMyApplication              myApp;
     char *                      pReaderHostName = nullptr;
     int                         rc;
-#ifdef linux
+#if defined(linux) || defined (__linux__)
     char *                      pMemHiwatAtStart = (char*)sbrk(0);
 #endif
 
@@ -258,7 +258,7 @@ main (
 
     printf("INFO: Done\n");
 
-#ifdef linux
+#if defined(linux) || defined (__linux__)
     {
         char *              pMemHiwatAtEnd = (char*)sbrk(0);
 
@@ -297,7 +297,7 @@ void
 usage (
   char *                        pProgName)
 {
-#ifdef linux
+#if defined(linux) || defined (__linux__)
     printf("Usage: %s [-v[v]] READERHOSTNAME\n", pProgName);
     printf("\n");
     printf("Each -v increases verbosity level\n");
