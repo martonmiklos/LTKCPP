@@ -18,21 +18,21 @@
  ***************************************************************************
  */
 
-
-#ifndef _LLRPORG_LTKCPP_H
-#define _LLRPORG_LTKCPP_H
-
-/*
- * Version is four each 8-bit numbers:
- * major, minor, maintenance, progress number
- */
-#define LLRPORG_LTKCPP_VERSION      0x01000008
-#define LLRPORG_LTKCPP_VERSION_STR  "1.0.0.8"
+#include "ltkcpp.h"
+#include "llrporg_ltkcpp.h"
 
 namespace LLRP
 {
-#include "out_llrporg_ltkcpp.h"
+#include "out_llrporg_ltkcpp.inc"
+
+static char     ident[] = {
+    "$" "Id: libltkcppllrporg "
+    STRINGIFY(LTKCPP_VERSION_STR)
+    "  Built: "
+    __DATE__
+    " "
+    __TIME__
+    " $"
+};
+
 }; /* namespace LLRP */
-
-#endif /* !_LLRPORG_LTKCPP_H */
-

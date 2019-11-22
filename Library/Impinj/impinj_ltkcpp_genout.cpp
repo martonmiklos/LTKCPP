@@ -1,7 +1,6 @@
 
 /*
  ***************************************************************************
- *  Copyright 2007,2008 Impinj, Inc.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -18,18 +17,16 @@
  ***************************************************************************
  */
 
-
 #include "ltkcpp.h"
-#include "llrporg_ltkcpp.h"
+#include "impinj_ltkcpp.h"
 
 namespace LLRP
 {
-#include "out_llrporg_ltkcpp.inc"
-
+#include "out_impinj_ltkcpp.inc"
 
 static char     ident[] = {
-    "$" "Id: libltkcppllrporg "
-    LLRPORG_LTKCPP_VERSION_STR
+    "$" "Id: libltkcppimpinj "
+    STRINGIFY(LTKCPP_VERSION_STR)
     "  Built: "
     __DATE__
     " "
@@ -38,4 +35,3 @@ static char     ident[] = {
 };
 
 }; /* namespace LLRP */
-
