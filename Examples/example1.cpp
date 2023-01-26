@@ -51,7 +51,7 @@
 #include <stdio.h>
 #include <cstdlib>
 
-#include "ltkcpp.h"
+#include "../Library/ltkcpp.h"
 
 using namespace LLRP;
 
@@ -378,7 +378,7 @@ CMyApplication::run (
 
                     rc = 5;
 
-                    for(i = 1; i <= 5; i++)
+                    for(i = 1; i <= 1; i++)
                     {
                         printf("INFO: Starting run %d ================\n", i);
                         if(0 != startROSpec())
@@ -853,7 +853,7 @@ CMyApplication::addROSpec (void)
     CAISpecStopTrigger *        pAISpecStopTrigger = new CAISpecStopTrigger();
     pAISpecStopTrigger->setAISpecStopTriggerType(
             AISpecStopTriggerType_Duration);
-    pAISpecStopTrigger->setDurationTrigger(5000);
+    pAISpecStopTrigger->setDurationTrigger(10000);
 
     CInventoryParameterSpec *   pInventoryParameterSpec =
                                     new CInventoryParameterSpec();
@@ -873,11 +873,11 @@ CMyApplication::addROSpec (void)
     pTagReportContentSelector->setEnableROSpecID(FALSE);
     pTagReportContentSelector->setEnableSpecIndex(FALSE);
     pTagReportContentSelector->setEnableInventoryParameterSpecID(FALSE);
-    pTagReportContentSelector->setEnableAntennaID(FALSE);
-    pTagReportContentSelector->setEnableChannelIndex(FALSE);
+    pTagReportContentSelector->setEnableAntennaID(TRUE);
+    pTagReportContentSelector->setEnableChannelIndex(TRUE);
     pTagReportContentSelector->setEnablePeakRSSI(FALSE);
-    pTagReportContentSelector->setEnableFirstSeenTimestamp(FALSE);
-    pTagReportContentSelector->setEnableLastSeenTimestamp(FALSE);
+    pTagReportContentSelector->setEnableFirstSeenTimestamp(TRUE);
+    pTagReportContentSelector->setEnableLastSeenTimestamp(TRUE);
     pTagReportContentSelector->setEnableTagSeenCount(FALSE);
     pTagReportContentSelector->setEnableAccessSpecID(FALSE);
 
@@ -1367,7 +1367,31 @@ CMyApplication::printOneTagReportData (
     {
         strcpy(aBuf, "---missing-epc-data---");
     }
-    printf("%-32s", aBuf);
+    
+    auto antenna = pTagReportData->getAntennaID();
+    auto first = pTagReportData->getFirstSeenTimestampUTC();
+    uint64_t firtTs = 0;
+    if (first)
+        firtTs = first->getMicroseconds();
+        
+    auto last = pTagReportData->getLastSeenTimestampUTC();
+    uint64_t lastTs = 0;
+    if (last)
+        lastTs = last->getMicroseconds();
+    
+    auto rssi = pTagReportData->getPeakRSSI();
+    int rssiLevel = 0;
+    if (rssi)
+        rssiLevel = rssi->getPeakRSSI();
+    
+    
+    if (antenna) {
+        printf("%-32s on antenna %d %ld - %ld RSSI: %d", aBuf, antenna->getAntennaID(), firtTs, lastTs, rssiLevel);
+    } else {
+        printf("%-32s", aBuf);
+    }
+    
+    
 
     /*
      * End of line
